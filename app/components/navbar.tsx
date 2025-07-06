@@ -26,10 +26,10 @@ const Navbar = () => {
               <a className="nav-link text-light fw-medium" href="/projects">Projects</a>
             </li>
             <li className="nav-item mx-2">
-              <a className="nav-link text-light fw-medium" href="#about">About</a>
+              <a className="nav-link text-light fw-medium" href="/about">About</a>
             </li>
             <li className="nav-item mx-2">
-              <a className="nav-link text-light fw-medium" href="#contact">Contact</a>
+              <a className="nav-link text-light fw-medium" href="/contact">Contact</a>
             </li>
           </ul>
           

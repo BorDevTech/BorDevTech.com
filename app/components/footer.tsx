@@ -60,8 +60,8 @@ const Footer = () => {
               <div>
                 <h6 className="text-light mb-0 small" style={{ fontSize: '0.7rem' }}>Connect</h6>
                 <div className="d-flex flex-wrap gap-0 align-items-center" style={{ fontSize: '0.65rem' }}>
-                  <a href="mailto:contact@bordevtech.com" className="text-info text-decoration-none">
-                    contact@bordevtech.com
+                  <a href="mailto:admin@bordevtech.com" className="text-info text-decoration-none">
+                    admin@bordevtech.com
                   </a>
                   <span className="text-secondary">•</span>
                   <a href="https://github.com/BorDevTech" className="text-light text-decoration-none">GitHub</a>
