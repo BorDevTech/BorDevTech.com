@@ -1,7 +1,10 @@
 import React from "react";
 import { Building2, FlaskConical, Zap } from "lucide-react";
+import { getProjectStats } from "../data/projects";
 
 const Hero = () => {
+  const projectStats = getProjectStats();
+  
   return (
     <section className="bg-dark text-light d-flex align-items-center justify-content-center flex-grow-1">
       <div className="container text-center">
@@ -13,7 +16,7 @@ const Hero = () => {
               <span className="d-none d-sm-inline">•</span>
               <span>✓ Fortune 500 Methodologies</span>
               <span className="d-none d-md-inline">•</span>
-              <span className="d-none d-md-inline">✓ 100% Project Success Rate</span>
+              <span className="d-none d-md-inline">✓ {projectStats.completionRate}% Project Completion Rate</span>
             </div>
             
             {/* Main Heading */}

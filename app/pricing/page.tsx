@@ -1,463 +1,593 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import { Building2, FlaskConical, Zap, CheckCircle } from "lucide-react";
+import { Building2, BarChart3, Megaphone, Wrench, CheckCircle, Clock, Users, Shield } from "lucide-react";
+import { getProjectStats } from "../data/projects";
+
+// Define service types
+const services = [
+  {
+    id: 'website',
+    name: 'Website Development',
+    icon: Building2,
+    description: 'Professional website creation and optimization',
+    basePrice: 2500
+  },
+  {
+    id: 'analytics',
+    name: 'Analytics & Insights',
+    icon: BarChart3,
+    description: 'Data tracking, analysis, and business intelligence',
+    basePrice: 3000
+  },
+  {
+    id: 'marketing',
+    name: 'Digital Marketing',
+    icon: Megaphone,
+    description: 'Marketing campaigns and automation setup',
+    basePrice: 4000
+  },
+  {
+    id: 'custom',
+    name: 'Custom Solutions',
+    icon: Wrench,
+    description: 'Tailored development for specific business needs',
+    basePrice: 5000
+  }
+];
+
+// Define package levels
+const packages = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    description: 'Essential features to get you started',
+    multiplier: 1,
+    features: [
+      'Professional business presence online',
+      'Mobile-friendly design for all devices',
+      'Contact forms and customer inquiries',
+      'Search engine visibility (SEO basics)',
+      'Quick launch in 2-4 weeks',
+      '30-day satisfaction guarantee'
+    ]
+  },
+  {
+    id: 'growth',
+    name: 'Growth',
+    description: 'Advanced features for scaling businesses',
+    multiplier: 2.5,
+    features: [
+      'Everything in Starter package',
+      'Customer analytics and insights',
+      'Social media integration',
+      'Lead generation and conversion tools',
+      'Performance optimization for speed',
+      'Competitor analysis and recommendations',
+      '90-day warranty and support'
+    ],
+    popular: true
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    description: 'Comprehensive solution for complex needs',
+    multiplier: 5,
+    features: [
+      'Everything in Growth package',
+      'Custom business workflows and automation',
+      'Third-party software integrations',
+      'Advanced security and data protection',
+      'Priority development and updates',
+      'Dedicated project management',
+      '6-month warranty and ongoing support'
+    ]
+  }
+];
+
+// Define support tiers
+const supportTiers = [
+  {
+    id: 'basic',
+    name: 'Basic Support',
+    description: 'Email support during business hours',
+    monthlyPrice: 0,
+    features: [
+      'Email support with 48-hour response',
+      'Access to help documentation',
+      'Community forum access',
+      'Basic troubleshooting assistance'
+    ]
+  },
+  {
+    id: 'priority',
+    name: 'Priority Support',
+    description: 'Priority support with faster response times',
+    monthlyPrice: 297,
+    features: [
+      'Priority email support (24-hour response)',
+      'Phone support during business hours',
+      'Monthly performance review calls',
+      'Minor updates and improvements',
+      'Backup and security monitoring'
+    ]
+  },
+  {
+    id: 'dedicated',
+    name: 'Dedicated Support',
+    description: '24/7 dedicated support with account manager',
+    monthlyPrice: 497,
+    features: [
+      'Dedicated account manager for your business',
+      '24/7 phone and email support',
+      'Weekly strategy and growth calls',
+      'Priority feature development',
+      'Advanced analytics and reporting',
+      'Business consultation and advice'
+    ]
+  }
+];
 
 const PricingPage = () => {
+  const projectStats = getProjectStats();
+  const [selectedService, setSelectedService] = useState(services[0]);
+  const [selectedPackage, setSelectedPackage] = useState(packages[1]); // Default to Growth
+  const [selectedSupport, setSelectedSupport] = useState(supportTiers[0]);
+
+  const calculatePrice = () => {
+    const basePrice = selectedService.basePrice * selectedPackage.multiplier;
+    return Math.round(basePrice);
+  };
+
+  const totalMonthlySupport = selectedSupport.monthlyPrice;
+
   return (
-    <div className="d-flex flex-column min-vh-100 bg-dark text-light" style={{overflowX: 'hidden'}}>
+    <div className="d-flex flex-column min-vh-100 bg-dark text-light">
       <style jsx>{`
-        body {
-          overflow-x: hidden;
-        }
-        
-        * {
-          box-sizing: border-box;
-        }
-        
-        .container-fluid {
-          max-width: 100%;
-          overflow-x: hidden;
-        }
-        
-        .pricing-card {
+        .selector-card {
           transition: all 0.3s ease;
           cursor: pointer;
-          max-width: 100%;
+          border: 2px solid transparent;
+          height: 100%;
         }
         
-        .pricing-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 15px 35px rgba(23, 162, 184, 0.3);
-          border-color: #17a2b8 !important;
+        .selector-card:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(23, 162, 184, 0.2);
         }
         
-        .pricing-card-featured {
-          box-shadow: 0 8px 25px rgba(23, 162, 184, 0.2);
+        .selector-card.selected {
+          border-color: #17a2b8;
+          background-color: rgba(23, 162, 184, 0.1) !important;
         }
         
-        .pricing-card-featured:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(23, 162, 184, 0.4);
+        .price-display {
+          background: linear-gradient(135deg, #17a2b8, #20c997);
+          border-radius: 10px;
+          padding: 0.75rem;
+          text-align: left;
+          box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3);
+          height: 790px;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .main-content {
+          height: calc(100vh - 56px - 175px); /* Full viewport minus navbar minus dead space */
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .hero-section {
+          flex: 1; /* Take remaining space after footer */
+          height: calc(100% - 175px); /* Reduce by dead space amount */
+        }
+        
+        .footer-section {
+          flex-shrink: 0; /* Footer keeps its natural height */
+        }
+        
+        .selector-section {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+        
+        .cards-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .cards-row {
+          display: flex;
+          align-items: flex-start;
+        }
+        
+        .cards-row .col-md-4 {
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .cards-row .card {
+          flex: none;
+          width: 100%;
+        }
+        
+        .package-card {
+          transition: all 0.3s ease;
+        }
+        
+        .package-card .card-body {
+          transition: all 0.3s ease;
+          padding: 0.75rem 0.5rem 0.5rem 0.5rem !important;
+        }
+        
+        .package-features ul {
+          margin-bottom: 0 !important;
+          padding-bottom: 0 !important;
+        }
+        
+        .package-features {
+          margin-bottom: 0 !important;
+          padding-bottom: 0 !important;
+        }
+        
+        .selector-card ul {
+          margin-bottom: 0 !important;
+        }
+        
+        .selector-card .card-body {
+          padding: 0.5rem !important;
+        }
+        
+        .package-features li:last-child,
+        .selector-card li:last-child {
+          margin-bottom: 0 !important;
+        }
+        
+        .package-features {
+          flex: 1;
+          overflow-y: auto;
+        }
+        
+        .hover-underline:hover {
+          text-decoration: underline !important;
+          color: #20c997 !important;
         }
         
         .popular-badge {
-          z-index: 10;
+          background: linear-gradient(45deg, #17a2b8, #20c997);
+          border-radius: 15px;
+          padding: 0.25rem 0.75rem;
+          font-size: 0.7rem;
+          font-weight: bold;
+          color: #000;
           white-space: nowrap;
         }
         
-        .pricing-card .btn {
-          transition: all 0.3s ease;
+        .popular-card .card-body {
+          padding-top: 1.5rem !important;
         }
         
-        .pricing-card:hover .btn-outline-info {
-          background-color: #17a2b8;
-          color: #000;
-          transform: scale(1.05);
+        .sticky-top {
+          position: sticky;
         }
         
-        .pricing-card:hover .btn-info {
-          transform: scale(1.05);
-          box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+        .card-body {
+          transition: all 0.2s ease;
         }
         
-        .pricing-icon {
-          transition: transform 0.3s ease;
-        }
-        
-        .pricing-card:hover .pricing-icon {
-          transform: scale(1.1);
-        }
-        
-        .faq-sidebar {
-          background: rgba(23, 162, 184, 0.05);
-          border-radius: 0.5rem;
-          padding: 1.5rem;
-        }
-        
-        /* Large screens (desktops) */
-        @media (min-width: 1200px) {
-          .pricing-card {
-            margin-bottom: 1rem;
-          }
-        }
-        
-        /* Medium screens (tablets) */
         @media (max-width: 991px) {
-          .pricing-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(23, 162, 184, 0.2);
+          .sticky-top {
+            position: static;
+            margin-top: 1rem;
           }
           
-          .pricing-card-featured:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(23, 162, 184, 0.3);
-          }
-          
-          .pricing-card:hover .pricing-icon {
-            transform: scale(1.05);
+          .price-display {
+            padding: 1.25rem;
+            text-align: center;
+            max-height: none;
           }
         }
         
-        /* Small screens (mobile) */
-        @media (max-width: 767px) {
-          .pricing-card {
-            margin-bottom: 1.5rem;
+        @media (max-width: 768px) {
+          .price-display {
+            padding: 1rem;
+            margin-top: 0.5rem;
           }
           
-          .pricing-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 15px rgba(23, 162, 184, 0.15);
+          .selector-card .card-body {
+            padding: 0.5rem !important;
           }
           
-          .pricing-card-featured:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 6px 20px rgba(23, 162, 184, 0.2);
-          }
-          
-          .pricing-card:hover .pricing-icon {
-            transform: scale(1.05);
-          }
-          
-          .hero-title {
-            font-size: 2.5rem !important;
-          }
-          
-          .hero-lead {
-            font-size: 1.1rem !important;
-          }
-          
-          .pricing-card .row {
-            text-align: center;
-          }
-          
-          .pricing-card .col-md-3,
-          .pricing-card .col-md-6 {
-            margin-bottom: 1rem;
+          .package-card .card-body {
+            padding: 0.75rem !important;
           }
           
           .sticky-top {
-            position: static !important;
-            margin-top: 2rem;
+            margin-top: 0.5rem;
           }
         }
         
-        /* Extra small screens */
-        @media (max-width: 575px) {
-          .hero-title {
-            font-size: 1.8rem !important;
+        @media (min-width: 992px) {
+          .price-display {
+            max-height: none;
+            overflow-y: auto;
           }
           
-          .hero-lead {
-            font-size: 0.95rem !important;
-          }
-          
-          .pricing-card .card-body {
-            padding: 1.5rem !important;
-          }
-          
-          .pricing-feature-text {
-            font-size: 0.9rem;
-          }
-          
-          .pricing-card-featured {
-            padding-top: 2rem !important;
-          }
-          
-          .popular-badge {
-            font-size: 0.8rem !important;
-            padding: 0.4rem 0.8rem !important;
-          }
-          
-          .pricing-icon {
-            margin-bottom: 0.5rem !important;
-          }
-          
-          .pricing-card .row {
-            flex-direction: column;
-          }
-          
-          .pricing-card .col-md-3,
-          .pricing-card .col-md-6 {
-            margin-bottom: 1.5rem;
-            text-align: center;
-          }
-          
-          .pricing-card .col-md-3:last-child {
-            margin-bottom: 0;
+          .main-content {
+            height: calc(100vh - 56px); /* Full viewport minus navbar */
+            overflow: hidden;
           }
         }
+        
+        /* Compact scrollbar for sidebar */
+        .price-display::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        .price-display::-webkit-scrollbar-track {
+          background: rgba(255,255,255,0.1);
+          border-radius: 2px;
+        }
+        
+        .price-display::-webkit-scrollbar-thumb {
+          background: rgba(0,0,0,0.3);
+          border-radius: 2px;
+        }
       `}</style>
-      
+
       <Navbar />
-      
-      <main className="flex-grow-1">
-        {/* Hero Section */}
-        <section className="bg-dark text-light py-2">
-          <div className="container text-center">
-            <div className="row justify-content-center">
-              <div className="col-lg-8 col-md-10">
-                <h1 className="h2 fw-bold text-white mb-2 hero-title">
-                  Choose Your <span className="text-info">Growth Package</span>
-                </h1>
-                <p className="mb-2 hero-lead">
-                  Flexible service packages designed to meet your business where it is and take it where it needs to go.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Pricing Cards */}
-        <section className="py-4 bg-dark">
-          <div className="container">
-            <div className="row">
-              {/* Packages Column */}
-              <div className="col-lg-7 col-md-12">
-              
-                {/* Starter Package */}
-                <div className="mb-4">
-                  <div className="card bg-dark border-secondary h-100 pricing-card">
-                    <div className="card-body p-4">
-                      <div className="row align-items-center">
-                        <div className="col-md-3 text-center mb-3 mb-md-0">
-                          <div className="text-info mb-2 pricing-icon">
-                            <Building2 size={48} />
-                          </div>
-                          <h4 className="text-white mb-1">Starter</h4>
-                          <p className="text-light small mb-0">Perfect for new businesses</p>
-                        </div>
-                        <div className="col-md-6">
-                          <ul className="list-unstyled mb-0">
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Professional website development</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Basic analytics setup</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Initial market research</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">30-day support included</span>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="col-md-3 text-center">
-                          <div className="text-white fs-5 fw-bold mb-1">Starting at</div>
-                          <div className="text-info fs-6 mb-3">Contact for Quote</div>
-                          <button className="btn btn-outline-info px-4 py-2">
-                            Get Started
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+      <main className="main-content">
+        {/* Hero Section with Calculator Layout */}
+        <section className="bg-dark text-light hero-section d-flex align-items-stretch">
+          <div className="container-fluid h-100 d-flex align-items-stretch">
+            <div className="row h-100 g-0">
+              {/* Left Column - Hero Content + Selectors */}
+              <div className="col-lg-8 col-md-7 d-flex flex-column p-1">
+                {/* Hero Content */}
+                <div className="text-center mb-1 flex-shrink-0">
+                  <h1 className="h4 fw-bold text-white mb-1">
+                    Build Your <span className="text-info">Custom Package</span>
+                  </h1>
+                  <p className="mb-0 small">
+                    Select a service, choose your package level, and pick your support tier.
+                  </p>
+                  <div className="text-secondary small">
+                    ✓ <a href="/projects" className="text-info text-decoration-none hover-underline">
+                      {projectStats.total} of {projectStats.applicationsReceived} Applications Completed
+                    </a> • Free Consultation • 30-Day Guarantee
                   </div>
                 </div>
 
-                {/* Growth Package */}
-                <div className="mb-4">
-                  <div className="card bg-dark border-info h-100 position-relative pricing-card pricing-card-featured">
-                    <div className="position-absolute top-0 start-50 translate-middle">
-                      <span className="badge bg-info text-dark px-3 py-2 fw-semibold popular-badge">Most Popular</span>
-                    </div>
-                    <div className="card-body p-4" style={{paddingTop: '3rem'}}>
-                      <div className="row align-items-center">
-                        <div className="col-md-3 text-center mb-3 mb-md-0">
-                          <div className="text-info mb-2 pricing-icon">
-                            <FlaskConical size={48} />
+                {/* Selectors Container */}
+                <div className="flex-grow-1 d-flex flex-column">
+                  {/* Service Selection */}
+                  <div className="mb-1 flex-shrink-0">
+                    <h4 className="mb-2 text-white text-center">
+                      <span className="badge bg-info text-dark me-2">1</span>
+                      Choose Your Service
+                    </h4>
+                    <div className="row">
+                      {services.map((service) => {
+                        const Icon = service.icon;
+                        return (
+                          <div key={service.id} className="col-md-6 mb-2">
+                            <div 
+                              className={`card bg-dark border-secondary h-100 selector-card ${selectedService.id === service.id ? 'selected' : ''}`}
+                              onClick={() => setSelectedService(service)}
+                            >
+                              <div className="card-body p-2">
+                                <div className="d-flex align-items-center mb-1">
+                                  <Icon size={18} className="text-info me-2" />
+                                  <div>
+                                    <h6 className="text-white mb-0 small">{service.name}</h6>
+                                    <div className="text-info small">From ${service.basePrice.toLocaleString()}</div>
+                                  </div>
+                                </div>
+                                <p className="small text-light mb-0">{service.description}</p>
+                              </div>
+                            </div>
                           </div>
-                          <h4 className="text-white mb-1">Growth</h4>
-                          <p className="text-light small mb-0">For expanding businesses</p>
-                        </div>
-                        <div className="col-md-6">
-                          <ul className="list-unstyled mb-0">
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Everything in Starter</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Advanced user behavior analysis</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Competitor analysis & insights</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Process optimization</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">90-day support included</span>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="col-md-3 text-center">
-                          <div className="text-white fs-5 fw-bold mb-1">Starting at</div>
-                          <div className="text-info fs-6 mb-3">Contact for Quote</div>
-                          <button className="btn btn-info text-dark px-4 py-2 fw-semibold">
-                            Get Started
-                          </button>
-                        </div>
-                      </div>
+                        );
+                      })}
                     </div>
                   </div>
-                </div>
 
-                {/* Enterprise Package */}
-                <div className="mb-4">
-                  <div className="card bg-dark border-secondary h-100 pricing-card">
-                    <div className="card-body p-4">
-                      <div className="row align-items-center">
-                        <div className="col-md-3 text-center mb-3 mb-md-0">
-                          <div className="text-info mb-2 pricing-icon">
-                            <Zap size={48} />
+                  {/* Separator */}
+                  <hr className="border-secondary my-1" />
+
+                  {/* Package Level Selection */}
+                  <div className="mb-2">
+                    <h4 className="mb-2 text-white text-center flex-shrink-0">
+                      <span className="badge bg-info text-dark me-2">2</span>
+                      Select Package Level
+                    </h4>
+                    <div className="row">
+                      {packages.map((pkg) => (
+                        <div key={pkg.id} className="col-md-4 mb-2">
+                          <div 
+                            className={`card bg-dark border-secondary package-card selector-card position-relative ${selectedPackage.id === pkg.id ? 'selected' : ''} ${pkg.popular ? 'popular-card' : ''}`}
+                            onClick={() => setSelectedPackage(pkg)}
+                          >
+                            {pkg.popular && (
+                              <div className="position-absolute top-0 start-50 translate-middle" style={{zIndex: 10}}>
+                                <span className="popular-badge small">Popular</span>
+                              </div>
+                            )}
+                            <div className="card-body p-2 d-flex flex-column" style={{paddingTop: pkg.popular ? '1.5rem' : '0.5rem', position: 'relative'}}>
+                              <div className="text-center mb-2 flex-shrink-0">
+                                <h6 className="text-white mb-1 small">{pkg.name}</h6>
+                                <div className="text-info fw-bold small">
+                                  {pkg.multiplier}x Base Price
+                                </div>
+                              </div>
+                              <div className="package-features" style={{ marginBottom: '0' }}>
+                                <ul className="list-unstyled mb-0">
+                                  {pkg.features.map((feature, index) => (
+                                    <li key={index} className={`d-flex align-items-start ${index === pkg.features.length - 1 ? 'mb-0' : 'mb-1'}`}>
+                                      <CheckCircle size={12} className="text-info me-2 flex-shrink-0 mt-1" />
+                                      <span className="text-light small">{feature}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
                           </div>
-                          <h4 className="text-white mb-1">Enterprise</h4>
-                          <p className="text-light small mb-0">For established companies</p>
                         </div>
-                        <div className="col-md-6">
-                          <ul className="list-unstyled mb-0">
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Everything in Growth</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Full digital marketing campaigns</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Marketing automation setup</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">Custom solution development</span>
-                            </li>
-                            <li className="mb-2 d-flex align-items-center">
-                              <CheckCircle size={18} className="text-info me-2 flex-shrink-0" />
-                              <span className="text-light">6-month support included</span>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="col-md-3 text-center">
-                          <div className="text-white fs-5 fw-bold mb-1">Starting at</div>
-                          <div className="text-info fs-6 mb-3">Contact for Quote</div>
-                          <button className="btn btn-outline-info px-4 py-2">
-                            Get Started
-                          </button>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
-                </div>
 
-              </div>
-              
-              {/* FAQ Sidebar */}
-              <div className="col-lg-5 col-md-12 ps-lg-4">
-                <div className="sticky-top faq-sidebar" style={{top: '2rem'}}>
-                  <h4 className="text-white mb-4">Frequently Asked Questions</h4>
-                  
-                  <div className="accordion" id="pricingFAQ">
-                    <div className="accordion-item bg-dark border-secondary mb-3">
-                      <h2 className="accordion-header">
-                        <button className="accordion-button bg-dark text-light border-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                          How do you determine the final price?
-                        </button>
-                      </h2>
-                      <div id="faq1" className="accordion-collapse collapse show" data-bs-parent="#pricingFAQ">
-                        <div className="accordion-body bg-dark text-light px-3 py-2">
-                          We start with a free consultation to understand your specific needs, goals, and current situation. Based on this, we provide a detailed proposal with transparent pricing tailored to your project scope.
+                  {/* Separator */}
+                  <hr className="border-secondary my-1" />
+
+                  {/* Support Tier Selection */}
+                  <div className="mb-1 flex-shrink-0">
+                    <h4 className="mb-2 text-white text-center">
+                      <span className="badge bg-info text-dark me-2">3</span>
+                      Choose Support Level
+                    </h4>
+                    <div className="row">
+                      {supportTiers.map((support) => (
+                        <div key={support.id} className="col-md-4 mb-2">
+                          <div 
+                            className={`card bg-dark border-secondary h-100 selector-card ${selectedSupport.id === support.id ? 'selected' : ''}`}
+                            onClick={() => setSelectedSupport(support)}
+                          >
+                            <div className="card-body p-2">
+                              <div className="text-center mb-2">
+                                <div className="d-flex align-items-center justify-content-center mb-1">
+                                  {support.id === 'basic' && <Clock size={16} className="text-info me-1" />}
+                                  {support.id === 'priority' && <Users size={16} className="text-info me-1" />}
+                                  {support.id === 'dedicated' && <Shield size={16} className="text-info me-1" />}
+                                  <h6 className="text-white mb-0 small">{support.name}</h6>
+                                </div>
+                                <div className="text-info fw-bold small">
+                                  {support.monthlyPrice === 0 ? 'Free' : `$${support.monthlyPrice}/month`}
+                                </div>
+                              </div>
+                              <ul className="list-unstyled mb-0">
+                                {support.features.slice(0, 2).map((feature, index) => (
+                                  <li key={index} className="mb-1 d-flex align-items-start">
+                                    <CheckCircle size={10} className="text-info me-2 flex-shrink-0 mt-1" />
+                                    <span className="text-light small">{feature}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    
-                    <div className="accordion-item bg-dark border-secondary mb-3">
-                      <h2 className="accordion-header">
-                        <button className="accordion-button collapsed bg-dark text-light border-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                          What's included in ongoing support?
-                        </button>
-                      </h2>
-                      <div id="faq2" className="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
-                        <div className="accordion-body bg-dark text-light px-3 py-2">
-                          Support includes bug fixes, performance monitoring, basic updates, and consultation on optimization opportunities. Extended support and additional features can be arranged separately.
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="accordion-item bg-dark border-secondary mb-3">
-                      <h2 className="accordion-header">
-                        <button className="accordion-button collapsed bg-dark text-light border-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                          Can I upgrade my package later?
-                        </button>
-                      </h2>
-                      <div id="faq3" className="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
-                        <div className="accordion-body bg-dark text-light px-3 py-2">
-                          Absolutely! We design our packages to grow with your business. You can upgrade at any time, and we'll credit any previous work toward your new package.
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="accordion-item bg-dark border-secondary mb-3">
-                      <h2 className="accordion-header">
-                        <button className="accordion-button collapsed bg-dark text-light border-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                          Do you offer custom solutions?
-                        </button>
-                      </h2>
-                      <div id="faq4" className="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
-                        <div className="accordion-body bg-dark text-light px-3 py-2">
-                          Yes! We specialize in custom solutions tailored to your unique business needs. Contact us to discuss your specific requirements and get a personalized quote.
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="accordion-item bg-dark border-secondary mb-3">
-                      <h2 className="accordion-header">
-                        <button className="accordion-button collapsed bg-dark text-light border-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-                          What's your typical project timeline?
-                        </button>
-                      </h2>
-                      <div id="faq5" className="accordion-collapse collapse" data-bs-parent="#pricingFAQ">
-                        <div className="accordion-body bg-dark text-light px-3 py-2">
-                          Project timelines vary based on complexity. Starter projects typically take 2-4 weeks, Growth projects 4-8 weeks, and Enterprise projects 8-16 weeks. We'll provide a detailed timeline during consultation.
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* CTA Section */}
-        <section className="py-4 bg-dark border-top border-secondary">
-          <div className="container text-center">
-            <div className="row justify-content-center">
-              <div className="col-lg-6 col-md-8 col-sm-10">
-                <h4 className="text-white mb-3">Ready to Get Started?</h4>
-                <p className="text-light mb-3">
-                  Schedule your free consultation to discuss your specific needs and get a custom proposal.
-                </p>
-                <button className="btn btn-danger px-4 px-md-5 py-2">
-                  Schedule Free Consultation
-                </button>
+              {/* Right Column - Cost Calculator Sidebar */}
+              <div className="col-lg-4 col-md-5 d-flex flex-column p-1">
+                <div className="d-flex flex-column">
+                  <div className="price-display d-flex flex-column">
+                    <h5 className="text-dark fw-bold mb-1 flex-shrink-0 small">Your Package Calculator</h5>
+                    
+                    {/* Selected Options Summary */}
+                    <div className="text-dark mb-1 flex-shrink-0">
+                      <div className="d-flex justify-content-between align-items-center mb-1 pb-1 border-bottom border-dark">
+                        <span className="fw-semibold small">Service:</span>
+                        <span className="text-end small">{selectedService.name}</span>
+                      </div>
+                      <div className="d-flex justify-content-between align-items-center mb-1 pb-1 border-bottom border-dark">
+                        <span className="fw-semibold small">Package:</span>
+                        <span className="text-end small">{selectedPackage.name}</span>
+                      </div>
+                      <div className="d-flex justify-content-between align-items-center mb-1 pb-1 border-bottom border-dark">
+                        <span className="fw-semibold small">Support:</span>
+                        <span className="text-end small">{selectedSupport.name}</span>
+                      </div>
+                    </div>
+
+                    {/* Price Breakdown */}
+                    <div className="text-dark d-flex flex-column">
+                      <div className="mb-1 flex-shrink-0">
+                        <h6 className="fw-bold mb-1 small">Project Breakdown</h6>
+                        <div className="d-flex justify-content-between align-items-center mb-1">
+                          <span className="small">Base Price:</span>
+                          <span className="small">${selectedService.basePrice.toLocaleString()}</span>
+                        </div>
+                        <div className="d-flex justify-content-between align-items-center mb-1">
+                          <span className="small">Enhancement:</span>
+                          <span className="small">${(selectedService.basePrice * (selectedPackage.multiplier - 1)).toLocaleString()}</span>
+                        </div>
+                        <div className="border-top border-dark pt-1 mt-1">
+                          <div className="d-flex justify-content-between align-items-center">
+                            <span className="fw-bold small">Project Total:</span>
+                            <span className="fw-bold text-success">${calculatePrice().toLocaleString()}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mb-1 p-2 bg-dark bg-opacity-25 rounded flex-shrink-0">
+                        <h6 className="fw-bold mb-1 small">Package Includes</h6>
+                        <ul className="list-unstyled mb-0">
+                          {selectedPackage.features.map((feature, index) => (
+                            <li key={index} className="mb-1 d-flex align-items-start">
+                              <span className="text-success me-1">✓</span>
+                              <span className="small">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="row mb-1 flex-shrink-0">
+                        <div className="col-6">
+                          <div className="small fw-semibold">Support:</div>
+                          <div className="small">
+                            {totalMonthlySupport === 0 ? 'Free' : `$${totalMonthlySupport}/mo`}
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="small fw-semibold">Timeline:</div>
+                          <div className="small">
+                            {selectedPackage.id === 'starter' ? '2-4wks' : 
+                             selectedPackage.id === 'growth' ? '4-8wks' : '8-16wks'}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="text-center p-2 bg-success bg-opacity-75 rounded flex-shrink-0">
+                        <div className="fw-bold small text-dark">Total Investment</div>
+                        <div className="h6 fw-bold text-dark mb-0">${calculatePrice().toLocaleString()}</div>
+                        <div className="small text-dark">
+                          + ${totalMonthlySupport === 0 ? '0' : totalMonthlySupport}/mo support
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="d-grid gap-1 flex-shrink-0 mt-1">
+                      <button className="btn btn-dark btn-sm">Get Free Consultation</button>
+                      <button className="btn btn-outline-dark btn-sm">Download Quote</button>
+                    </div>
+
+                    {/* Trust Signals */}
+                    <div className="text-dark text-center small flex-shrink-0 mt-1">
+                      <div>✓ 30-Day Guarantee • ✓ Free Consultation • ✓ No Hidden Fees</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
       </main>
-
-      <Footer />
+      
+      <div className="footer-section">
+        <Footer />
+      </div>
     </div>
   );
 };
