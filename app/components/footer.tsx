@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="row align-items-center">
           {/* Brand Column - Tiered Monogram */}
           <div className="col-lg-6 mb-1 mb-lg-0">
-            <div className="d-flex align-items-center gap-2">
+            <div className="d-flex align-items-center gap-1">
               {/* Tiered Monogram - Clean Stacked Text */}
               <div>
                 <div className="d-inline-block">
@@ -43,7 +43,7 @@ const Footer = () => {
                   fontSize: '0.65rem',
                   letterSpacing: '0.03em',
                   display: 'block',
-                  marginBottom: '0.1rem'
+                  marginBottom: '0.075rem'
                 }}>
                   "Insight. Innovation. Implementation."
                 </small>
@@ -59,7 +59,7 @@ const Footer = () => {
             <div className="d-flex align-items-center justify-content-lg-end">
               <div>
                 <h6 className="text-light mb-0 small" style={{ fontSize: '0.7rem' }}>Connect</h6>
-                <div className="d-flex flex-wrap gap-1 align-items-center" style={{ fontSize: '0.65rem' }}>
+                <div className="d-flex flex-wrap gap-0 align-items-center" style={{ fontSize: '0.65rem' }}>
                   <a href="mailto:contact@bordevtech.com" className="text-info text-decoration-none">
                     contact@bordevtech.com
                   </a>

@@ -187,6 +187,9 @@ const PricingPage = () => {
         
         .footer-section {
           flex-shrink: 0; /* Footer keeps its natural height */
+          position: sticky;
+          bottom: 0;
+          z-index: 10;
         }
         
         .selector-section {
