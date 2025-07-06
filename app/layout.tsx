@@ -20,15 +20,88 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <style>{`
-          body {
+          html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
             background-color: #212529;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-optical-sizing: auto;
+          }
+          .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+          }
+          .hero-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-height: 0;
+            padding: 1rem 0;
+          }
+          footer {
+            flex-shrink: 0;
+            margin-top: auto;
           }
           .navbar-brand {
-            font-weight: bold !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.025em;
+          }
+          .btn {
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+            transition: all 0.2s ease;
+          }
+          .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border: none;
+            box-shadow: 0 4px 14px 0 rgba(220, 53, 69, 0.3);
+          }
+          .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(220, 53, 69, 0.4);
+          }
+          .btn-outline-light:hover, .btn-outline-info:hover {
+            transform: translateY(-2px);
+          }
+          .text-info {
+            color: #17a2b8 !important;
           }
           .border-secondary {
             border-color: #495057 !important;
+          }
+          .container-fluid, .container {
+            max-width: 100%;
+            overflow-x: hidden;
+          }
+          h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            letter-spacing: -0.025em;
+          }
+          @media (max-width: 768px) {
+            .display-3 {
+              font-size: 2.5rem !important;
+            }
+            .hero-section {
+              padding: 0.5rem 0;
+            }
+          }
+          .display-md-2 {
+            font-size: calc(1.375rem + 1.5vw);
+          }
+          @media (min-width: 768px) {
+            .display-md-2 {
+              font-size: 2rem;
+            }
+          }
+          @media (min-width: 1200px) {
+            .display-md-2 {
+              font-size: 3.5rem;
+            }
           }
         `}</style>
       </head>

@@ -2,14 +2,14 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid">
-        <a className="navbar-brand text-white fw-bold" href="#">
-          BorDev Tech
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
+      <div className="container-fluid px-4">
+        <a className="navbar-brand text-white fw-bold fs-3" href="#">
+          BorDev<span className="text-info">Tech</span>
         </a>
         
         <button 
-          className="navbar-toggler" 
+          className="navbar-toggler border-0" 
           type="button" 
           data-bs-toggle="collapse" 
           data-bs-target="#navbarNav"
@@ -18,31 +18,27 @@ const Navbar = () => {
         </button>
         
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto">
-            <li className="nav-item">
-              <a className="nav-link text-light" href="#about">About</a>
+          <ul className="navbar-nav mx-auto">
+            <li className="nav-item mx-2">
+              <a className="nav-link text-light fw-medium" href="#services">Services</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link text-light" href="#services">Services</a>
+            <li className="nav-item mx-2">
+              <a className="nav-link text-light fw-medium" href="/pricing">Packages</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link text-light" href="#projects">Projects</a>
+            <li className="nav-item mx-2">
+              <a className="nav-link text-light fw-medium" href="#projects">Projects</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link text-light" href="#contact">Contact</a>
+            <li className="nav-item mx-2">
+              <a className="nav-link text-light fw-medium" href="#about">About</a>
+            </li>
+            <li className="nav-item mx-2">
+              <a className="nav-link text-light fw-medium" href="#contact">Contact</a>
             </li>
           </ul>
           
-          <div className="d-flex">
-            <input 
-              className="form-control me-2" 
-              type="search" 
-              placeholder="••••••" 
-              style={{width: '200px'}}
-            />
-            <button className="btn btn-outline-light me-2">Search</button>
+          <div className="d-flex gap-2">
+            <button className="btn btn-outline-info">Login</button>
             <button className="btn btn-danger">Get Started</button>
-            <button className="btn btn-primary ms-2">📘</button>
           </div>
         </div>
       </div>
