@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import { Building2, FlaskConical, Zap, CheckCircle, ExternalLink, Calendar, TrendingUp } from "lucide-react";
-import { projects, getFeaturedProjects, getProjectStats, Project } from "../data/projects";
+import { Building2, FlaskConical, Zap, CheckCircle, Calendar, TrendingUp } from "lucide-react";
+import { projects, getProjectStats } from "../data/projects";
 
 const ProjectsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedPackage, setSelectedPackage] = useState<string>('all');
   
   const projectStats = getProjectStats();
-  const featuredProjects = getFeaturedProjects();
 
   const filteredProjects = projects.filter(project => {
     const categoryMatch = selectedCategory === 'all' || project.category === selectedCategory;
@@ -345,9 +345,9 @@ const ProjectsPage = () => {
                   Join our growing list of satisfied clients and let us help bring your vision to life.
                 </p>
                 <div className="d-flex justify-content-center gap-3 flex-wrap">
-                  <a href="/pricing" className="btn btn-info text-dark px-4 py-2">
+                  <Link href="/pricing" className="btn btn-info text-dark px-4 py-2">
                     View Packages
-                  </a>
+                  </Link>
                   <button className="btn btn-outline-info px-4 py-2">
                     Schedule Consultation
                   </button>

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "BorDev Tech",
-  description: "Top-notch development services to get you on your feet and ready to go!",
+  description:
+    "Top-notch development services to get you on your feet and ready to go!",
 };
 
 export default function RootLayout({
@@ -19,6 +21,15 @@ export default function RootLayout({
           integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
           crossOrigin="anonymous"
         />
+
+        <Script id="clarity-analytics" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "saih5kxifd");`}
+        </Script>
+
         <style>{`
           html, body {
             height: 100%;
@@ -104,13 +115,14 @@ export default function RootLayout({
             }
           }
         `}</style>
+        <meta name="msvalidate.01" content="E4D7229DE479B098F96B5441BDA3686F" />
       </head>
       <body>
         {children}
-        <script
+        <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-          crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
       </body>
     </html>

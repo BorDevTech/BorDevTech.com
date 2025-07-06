@@ -1,12 +1,13 @@
 import React from "react";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
       <div className="container-fluid px-4">
-        <a className="navbar-brand text-white fw-bold fs-3" href="/">
+        <Link href="/" className="navbar-brand text-white fw-bold fs-3">
           BorDev<span className="text-info">Tech</span>
-        </a>
+        </Link>
         
         <button 
           className="navbar-toggler border-0" 
@@ -20,16 +21,16 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto">
             <li className="nav-item mx-2">
-              <a className="nav-link text-light fw-medium" href="/pricing">Packages</a>
+              <Link href="/pricing" className="nav-link text-light fw-medium">Packages</Link>
             </li>
             <li className="nav-item mx-2">
-              <a className="nav-link text-light fw-medium" href="/projects">Projects</a>
+              <Link href="/projects" className="nav-link text-light fw-medium">Projects</Link>
             </li>
             <li className="nav-item mx-2">
-              <a className="nav-link text-light fw-medium" href="/about">About</a>
+              <Link href="/about" className="nav-link text-light fw-medium">About</Link>
             </li>
             <li className="nav-item mx-2">
-              <a className="nav-link text-light fw-medium" href="/contact">Contact</a>
+              <Link href="/contact" className="nav-link text-light fw-medium">Contact</Link>
             </li>
           </ul>
           

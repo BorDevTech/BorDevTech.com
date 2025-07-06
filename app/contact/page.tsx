@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
@@ -42,8 +43,8 @@ const ContactPage = () => {
                   Get In <span className="text-info">Touch</span>
                 </h1>
                 <p className="lead mb-4">
-                  Ready to start your next project? We'd love to hear from you. 
-                  Send us a message and we'll respond as soon as possible.
+                  Ready to start your next project? We&apos;d love to hear from you. 
+                  Send us a message and we&apos;ll respond as soon as possible.
                 </p>
                 <div className="text-secondary">
                   <small>✓ Free Consultation • ✓ Quick Response • ✓ No Obligation</small>
@@ -214,8 +215,8 @@ const ContactPage = () => {
                   Book a free consultation to discuss your project requirements
                 </p>
                 <div className="d-flex justify-content-center gap-3">
-                  <a href="/pricing" className="btn btn-info btn-lg">View Pricing</a>
-                  <a href="/projects" className="btn btn-outline-info btn-lg">See Our Work</a>
+                  <Link href="/pricing" className="btn btn-info btn-lg">View Pricing</Link>
+                  <Link href="/projects" className="btn btn-outline-info btn-lg">See Our Work</Link>
                 </div>
               </div>
             </div>

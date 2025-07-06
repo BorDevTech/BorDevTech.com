@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { Building2, BarChart3, Megaphone, Wrench, CheckCircle, Clock, Users, Shield } from "lucide-react";
@@ -361,9 +362,9 @@ const PricingPage = () => {
                     Select a service, choose your package level, and pick your support tier.
                   </p>
                   <div className="text-secondary small">
-                    ✓ <a href="/projects" className="text-info text-decoration-none hover-underline">
+                    ✓ <Link href="/projects" className="text-info text-decoration-none hover-underline">
                       {projectStats.total} of {projectStats.applicationsReceived} Applications Completed
-                    </a> • Free Consultation • 30-Day Guarantee
+                    </Link> • Free Consultation • 30-Day Guarantee
                   </div>
                 </div>
 
