@@ -65,11 +65,30 @@ const ConsultationPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-      setIsSubmitted(true);
+    try {
+      const response = await fetch('/api/consultation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        console.error('Submission error:', data.error);
+        // You could add error state handling here
+        alert('There was an error submitting your request. Please try again.');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      alert('There was a network error. Please check your connection and try again.');
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+    }
   };
 
   if (isSubmitted) {
