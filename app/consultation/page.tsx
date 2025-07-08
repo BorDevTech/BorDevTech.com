@@ -84,7 +84,7 @@ const ConsultationPage = () => {
                   <CheckCircle size={64} className="text-success mb-3" />
                   <h1 className="display-5 fw-bold text-white mb-3">Thank You!</h1>
                   <p className="lead text-light mb-4">
-                    Your consultation request has been submitted successfully. We'll review your project details and get back to you within 24 hours.
+                    Your consultation request has been submitted successfully. We&apos;ll review your project details and get back to you within 24 hours.
                   </p>
                   <div className="d-flex justify-content-center gap-3">
                     <Link href="/" className="btn btn-info btn-lg">Back to Home</Link>
@@ -114,7 +114,7 @@ const ConsultationPage = () => {
                   Get Your <span className="text-info">Free Consultation</span>
                 </h1>
                 <p className="lead mb-4">
-                  Ready to transform your ideas into reality? Let's discuss your project and explore how we can help you achieve your goals.
+                  Ready to transform your ideas into reality? Let&apos;s discuss your project and explore how we can help you achieve your goals.
                 </p>
                 <div className="row g-4 mb-5">
                   <div className="col-md-4">
@@ -321,7 +321,7 @@ const ConsultationPage = () => {
                     </div>
                     <h5 className="text-white">Project Review</h5>
                     <p className="text-secondary">
-                      We'll carefully review your project requirements and prepare tailored recommendations.
+                      We&apos;ll carefully review your project requirements and prepare tailored recommendations.
                     </p>
                   </div>
                   <div className="col-md-4">
