@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Building2, FlaskConical, Zap } from "lucide-react";
 import { getProjectStats } from "../data/projects";
 
@@ -12,9 +13,9 @@ const Hero = () => {
           <div className="col-lg-10 col-xl-8">
             {/* Trust Indicators */}
             <div className="d-flex justify-content-center align-items-center gap-4 mb-3 text-light small">
-              <span>✓ 5+ Years Enterprise Experience</span>
+              <span>✓ Custom Software Solutions</span>
               <span className="d-none d-sm-inline">•</span>
-              <span>✓ Fortune 500 Methodologies</span>
+              <span>✓ Proven Development Process</span>
               <span className="d-none d-md-inline">•</span>
               <span className="d-none d-md-inline">✓ {projectStats.completionRate}% Project Completion Rate</span>
             </div>
@@ -31,12 +32,12 @@ const Hero = () => {
 
             {/* Action Buttons with Clear Flow */}
             <div className="d-flex flex-column flex-sm-row justify-content-center gap-2 mb-2">
-              <button className="btn btn-danger btn-lg px-4 py-2 fw-semibold">
+              <Link href="/consultation" className="btn btn-danger btn-lg px-4 py-2 fw-semibold text-decoration-none">
                 Get Free Consultation
-              </button>
-              <button className="btn btn-outline-light btn-lg px-4 py-2 fw-semibold">
+              </Link>
+              <Link href="/projects" className="btn btn-outline-light btn-lg px-4 py-2 fw-semibold text-decoration-none">
                 View Case Studies
-              </button>
+              </Link>
             </div>
             
             {/* Secondary CTA */}

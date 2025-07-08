@@ -36,7 +36,7 @@ const Navbar = () => {
           
           <div className="d-flex gap-2">
             <button className="btn btn-outline-info">Login</button>
-            <button className="btn btn-danger">Get Started</button>
+            <Link href="/consultation" className="btn btn-info">Free Consult</Link>
           </div>
         </div>
       </div>

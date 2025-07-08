@@ -17,19 +17,3 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-/* Hide Microsoft Clarity development overlay */
-#clarity-container,
-[data-clarity-mask],
-.clarity-mask,
-div[id*="clarity"],
-div[class*="clarity"] {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-/* Hide any floating development indicators */
-div[style*="position: fixed"][style*="bottom"][style*="left"],
-div[style*="position: absolute"][style*="bottom"][style*="left"] {
-  z-index: -1 !important;
-}

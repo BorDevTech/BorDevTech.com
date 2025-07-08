@@ -30,14 +30,6 @@ export default function RootLayout({
           })(window, document, "clarity", "script", "saih5kxifd");`}
         </Script>
 
-        <Script id="clarity-config" strategy="afterInteractive">
-          {`
-            if (typeof clarity !== 'undefined') {
-              clarity('set', 'showRecordingStatus', false);
-            }
-          `}
-        </Script>
-
         <style>{`
           html, body {
             height: 100%;
