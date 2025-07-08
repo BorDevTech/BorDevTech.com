@@ -19,69 +19,69 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "1",
-    title: "E-Commerce Platform Redesign",
-    client: "TechStart Solutions",
+    title: "VisualDelights",
+    client: "Commercial Cleaning Service",
     category: "website",
     package: "growth",
-    completedDate: "2024-12-15",
-    description: "Complete redesign and optimization of e-commerce platform with modern UI/UX and performance improvements.",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
+    completedDate: "2024-11-22",
+    description: "Professional cleaning service website for commercial buildings and residential homes, featuring Airbnb cleaning specialization with booking system and service management.",
+    technologies: ["TypeScript", "React", "Booking Integration"],
     results: [
-      { metric: "Conversion Rate", improvement: "+45%" },
-      { metric: "Page Load Speed", improvement: "+60%" }
+      { metric: "Service Bookings", improvement: "+150%" },
+      { metric: "Airbnb Partnerships", improvement: "+200%" }
     ],
     featured: true
   },
   {
     id: "2",
-    title: "Analytics Dashboard Development",
-    client: "DataFlow Inc",
+    title: "ClearView",
+    client: "Data Analytics Firm",
     category: "analytics",
     package: "growth",
-    completedDate: "2024-11-28",
-    description: "Custom analytics dashboard for real-time business intelligence and data visualization.",
-    technologies: ["React", "D3.js", "Node.js", "MongoDB"],
+    completedDate: "2024-12-15",
+    description: "Advanced lookup tool utilizing various data sources for comprehensive information retrieval and business intelligence analysis.",
+    technologies: ["TypeScript", "Data APIs", "React"],
     results: [
-      { metric: "Data Processing", improvement: "+80%" },
-      { metric: "User Engagement", improvement: "+35%" }
+      { metric: "Data Retrieval Speed", improvement: "+200%" },
+      { metric: "Research Efficiency", improvement: "+150%" }
     ],
     featured: true
   },
   {
     id: "3",
-    title: "Marketing Automation Setup",
-    client: "GrowthCorp",
-    category: "marketing",
-    package: "enterprise",
-    completedDate: "2024-11-10",
-    description: "Complete marketing automation workflow with lead nurturing and conversion tracking.",
-    technologies: ["HubSpot", "Zapier", "Google Analytics", "Custom APIs"],
-    results: [
-      { metric: "Lead Generation", improvement: "+120%" },
-      { metric: "Marketing ROI", improvement: "+85%" }
-    ],
-    featured: false
-  },
-  {
-    id: "4",
-    title: "Restaurant Management System",
-    client: "Bistro Chain",
+    title: "Windows11-Clone",
+    client: "UI/UX Portfolio Project",
     category: "custom",
     package: "enterprise",
-    completedDate: "2024-10-22",
-    description: "Custom POS and inventory management system for restaurant chain operations.",
-    technologies: ["Vue.js", "Python", "PostgreSQL", "AWS"],
+    completedDate: "2023-11-15",
+    description: "Pixel-perfect recreation of Windows 11 desktop experience demonstrating advanced UI/UX implementation and attention to detail.",
+    technologies: ["TypeScript", "React", "Advanced CSS"],
+    results: [
+      { metric: "Design Accuracy", improvement: "99.9%" },
+      { metric: "User Experience", improvement: "Industry Standard" }
+    ],
     featured: true
   },
   {
+    id: "4",
+    title: "Healthcare Listing System",
+    client: "Healthcare Provider",
+    category: "custom",
+    package: "enterprise",
+    completedDate: "2024-01-19",
+    description: "Comprehensive healthcare facility listing and management system with search functionality and provider information management.",
+    technologies: ["TypeScript", "Database Integration", "Search APIs"],
+    featured: false
+  },
+  {
     id: "5",
-    title: "Startup Landing Page",
-    client: "InnovateLab",
+    title: "Professional Services Website",
+    client: "Technology Consultant",
     category: "website",
     package: "starter",
-    completedDate: "2024-10-08",
-    description: "Modern landing page with lead capture and conversion optimization.",
-    technologies: ["Next.js", "Bootstrap", "Vercel"],
+    completedDate: "2024-01-19",
+    description: "Clean business website showcasing development capabilities and project portfolio with contact integration.",
+    technologies: ["TypeScript", "React", "CSS"],
     featured: false
   }
 ];
